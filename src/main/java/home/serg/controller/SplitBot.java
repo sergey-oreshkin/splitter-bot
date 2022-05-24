@@ -49,7 +49,8 @@ public class SplitBot extends TelegramLongPollingBot {
             } catch (TelegramApiException e) {
                 e.printStackTrace(); //TODO
             }
-        } else if (update.getMyChatMember() != null) {
+        } else if (update.getMyChatMember() != null &&
+                "member".equals(update.getMyChatMember().getNewChatMember().getStatus())) {
             Long chatId = update.getMyChatMember().getChat().getId();
             sm.setChatId(chatId.toString());
             sm.setText(mp.getResponse(chatId, "/"));
