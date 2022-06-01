@@ -1,19 +1,22 @@
 package home.serg.service;
 
+import home.serg.utils.Messages;
+import org.springframework.stereotype.Service;
+import org.telegram.telegrambots.meta.api.objects.User;
+
+@Service
 public class MessageProcessorImpl implements MessageProcessor {
-    public static final String NOTHING_TO_SAY = "На это мне нечего ответить";
 
     @Override
-    public String getResponse(long chat, String msg) {
+    public String getResponse(long chat, String msg, User user) {
         String[] parts = msg.split(" ");
-        String response = NOTHING_TO_SAY;
+        String response = Messages.NOTHING_TO_SAY;
         switch (parts[0]) {
-            case "/":
-                response = "Ну привет";
+            case "/?":
+                response = Messages.GREETING;
                 break;
             case "/me":
-                String name = parts[1];
-                response = "Я тебя запомнил, " + name;
+                response = "Я тебя запомнил, " + parseName(parts, user);
                 break;
             case "/all":
                 response = "Это все кого я знаю";
@@ -26,5 +29,15 @@ public class MessageProcessorImpl implements MessageProcessor {
                 break;
         }
         return response;
+    }
+
+    private String parseName(String[] parts, User user) {
+        if (parts.length == 2) {
+            return parts[1];
+        }
+        if (parts.length == 3) {
+            return parts[1] + " " + parts[2];
+        }
+        return user.getFirstName() + " " + user.getLastName();//Todo use nic
     }
 }

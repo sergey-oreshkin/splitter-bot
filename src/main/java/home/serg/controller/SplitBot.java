@@ -1,20 +1,25 @@
 package home.serg.controller;
 
 import home.serg.service.MessageProcessor;
-import home.serg.service.MessageProcessorImpl;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.*;
+import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+@Slf4j
+@RequiredArgsConstructor
+@Service
 public class SplitBot extends TelegramLongPollingBot {
-    Logger logger = LoggerFactory.getLogger("Bot");
+
+    private final MessageProcessor messageProcessor;
 
     public String getBotUsername() {
         return "TestSplitting_bot";
@@ -34,16 +39,15 @@ public class SplitBot extends TelegramLongPollingBot {
     }
 
     public void onUpdateReceived(Update update) {
-        logger.info(update.toString());
 
         SendMessage sm = new SendMessage();
-        MessageProcessor mp = new MessageProcessorImpl();
 
         if (update.hasMessage() && update.getMessage().hasText()) {
             String text = update.getMessage().getText();
             Long chatId = update.getMessage().getChatId();
+            User user = update.getMessage().getFrom();
             sm.setChatId(chatId.toString());
-            sm.setText(mp.getResponse(chatId, text));
+            sm.setText(messageProcessor.getResponse(chatId, text, user));
             try {
                 execute(sm);
             } catch (TelegramApiException e) {
@@ -53,7 +57,7 @@ public class SplitBot extends TelegramLongPollingBot {
                 "member".equals(update.getMyChatMember().getNewChatMember().getStatus())) {
             Long chatId = update.getMyChatMember().getChat().getId();
             sm.setChatId(chatId.toString());
-            sm.setText(mp.getResponse(chatId, "/"));
+            sm.setText(messageProcessor.getResponse(chatId, "/", null));
             try {
                 execute(sm);
             } catch (TelegramApiException e) {
