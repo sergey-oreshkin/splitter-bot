@@ -1,4 +1,10 @@
-CREATE TABLE IF NOT EXISTS users(
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS chat;
+DROP TABLE IF EXISTS user_chat;
+DROP TABLE IF EXISTS split;
+DROP TABLE IF EXISTS split_record;
+
+CREATE TABLE users(
     id SERIAL PRIMARY KEY,
     first_name VARCHAR(255),
     last_name VARCHAR(255),
@@ -6,7 +12,7 @@ CREATE TABLE IF NOT EXISTS users(
     updated DATE DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE IF NOT EXISTS chat(
+CREATE TABLE chat(
     id SERIAL PRIMARY KEY,
     chat_id BIGINT,
     chat_type VARCHAR(255),
@@ -14,7 +20,7 @@ CREATE TABLE IF NOT EXISTS chat(
     updated DATE DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE IF NOT EXISTS user_chat(
+CREATE TABLE user_chat(
     id SERIAL PRIMARY KEY,
     user_id INT,
     chat_id INT,
@@ -26,7 +32,7 @@ CREATE TABLE IF NOT EXISTS user_chat(
         REFERENCES chat(id)
 );
 
-CREATE TABLE IF NOT EXISTS split(
+CREATE TABLE split(
     id SERIAL PRIMARY KEY,
     owner INT,
     CONSTRAINT owner
@@ -34,7 +40,7 @@ CREATE TABLE IF NOT EXISTS split(
         REFERENCES user_chat(id)
 );
 
-CREATE TABLE IF NOT EXISTS split_record(
+CREATE TABLE split_record(
     id SERIAL PRIMARY KEY,
     split INT,
     who_paid INT,
