@@ -41,6 +41,7 @@ public class SplitBot extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
 
         SendMessage sm = new SendMessage();
+        log.info(update.toString());
 
         if (update.hasMessage() && update.getMessage().hasText()) {
             String text = update.getMessage().getText();

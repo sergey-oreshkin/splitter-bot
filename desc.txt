@@ -3,3 +3,20 @@
 /all {список участников}
 /spend сумма [-all | доля1,доля2..доляN] {внесение траты}
 /calc {вывод расчета}
+
+DB
+
+user
+    (PK id, firs_name, last_name, nic, updated(current timestamp))
+
+chat
+    (PK id, chat_id, type, title, updated(current timestamp))
+
+user_chat
+    (PK id, FK user(user.id), FK chat(chat.id))
+
+split
+    (PK id, FK owner(user_chat.id))
+
+expense(split_record)
+    (PK id, FK split(split.id), FK who_paid(user.id), share JSONb)
