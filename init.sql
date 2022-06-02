@@ -1,11 +1,12 @@
+DROP TABLE IF EXISTS split_record;
+DROP TABLE IF EXISTS split;
+DROP TABLE IF EXISTS user_chat;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS chat;
-DROP TABLE IF EXISTS user_chat;
-DROP TABLE IF EXISTS split;
-DROP TABLE IF EXISTS split_record;
 
 CREATE TABLE users(
     id SERIAL PRIMARY KEY,
+    user_id BIGINT,
     first_name VARCHAR(255),
     last_name VARCHAR(255),
     nic_name VARCHAR(255),
