@@ -8,17 +8,20 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "split")
+@Table(name = "user_chat")
 @NoArgsConstructor
 @Getter
 @Setter
 @EqualsAndHashCode
-public class Split {
+public class UserChat {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @ManyToOne
-    private UserChat owner;
+    @Column(name = "user_id")
+    private int userId;
+
+    @Column(name = "chat_id")
+    private int chatId;
 }

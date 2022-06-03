@@ -10,7 +10,7 @@ CREATE TABLE users(
     first_name VARCHAR(255),
     last_name VARCHAR(255),
     nic_name VARCHAR(255),
-    updated DATE DEFAULT CURRENT_TIMESTAMP
+    update DATE DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE chat(
@@ -18,7 +18,7 @@ CREATE TABLE chat(
     chat_id BIGINT,
     chat_type VARCHAR(255),
     title VARCHAR(255),
-    updated DATE DEFAULT CURRENT_TIMESTAMP
+    update DATE DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE user_chat(

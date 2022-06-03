@@ -1,32 +1,43 @@
 package home.serg.model;
 
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "users")
-@Data
+@NoArgsConstructor
+@Getter
+@Setter
+@EqualsAndHashCode(exclude = {"chats"})
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private int id;
 
-    private Long user_id;
+    @Column(name = "user_id")
+    private long userId;
 
-    private String first_name;
+    @Column(name = "first_name")
+    private String firstName;
 
-    private String last_name;
+    @Column(name = "last_name")
+    private String lastName;
 
-    private String nic_name;
+    @Column(name = "nic_name")
+    private String nicName;
 
+    @Column(name = "update")
     @CreationTimestamp
-    private Date updated;
+    private LocalDate update;
 
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(

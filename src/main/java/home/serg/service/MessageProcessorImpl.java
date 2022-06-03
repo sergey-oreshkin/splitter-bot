@@ -1,11 +1,16 @@
 package home.serg.service;
 
+import home.serg.repository.UserRepo;
 import home.serg.utils.Messages;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.User;
 
 @Service
+@RequiredArgsConstructor
 public class MessageProcessorImpl implements MessageProcessor {
+
+    private final UserRepo userRepo;
 
     @Override
     public String getResponse(long chat, String msg, User user) {

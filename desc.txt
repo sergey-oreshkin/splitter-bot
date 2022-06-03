@@ -7,10 +7,10 @@
 DB
 
 user
-    (PK id, firs_name, last_name, nic, updated(current timestamp))
+    (PK id, firs_name, last_name, nic, update(current timestamp))
 
 chat
-    (PK id, chat_id, type, title, updated(current timestamp))
+    (PK id, chat_id, type, title, update(current timestamp))
 
 user_chat
     (PK id, FK user(user.id), FK chat(chat.id))
