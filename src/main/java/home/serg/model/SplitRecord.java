@@ -19,10 +19,10 @@ public class SplitRecord {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @ManyToOne
+    @ManyToOne(targetEntity = Split.class)
     private Split split;
 
-    @ManyToOne
+    @ManyToOne(targetEntity = User.class)
     private User whoPaid;
 
     @Column(name = "share")

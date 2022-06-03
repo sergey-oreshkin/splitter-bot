@@ -20,5 +20,13 @@ public class Split {
     private int id;
 
     @ManyToOne
+    @JoinTable(
+            name = "user_chat",
+            joinColumns = { @JoinColumn(
+                    table = "user_chat",
+                    name = "id",
+                    referencedColumnName = "owner"
+            )}
+    )
     private UserChat owner;
 }
