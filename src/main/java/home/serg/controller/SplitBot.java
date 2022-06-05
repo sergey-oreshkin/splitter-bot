@@ -34,7 +34,6 @@ public class SplitBot extends TelegramLongPollingBot {
             ).readLine();
         } catch (IOException e) {
             throw new RuntimeException("Resource with token is not found", e);
-
         }
     }
 

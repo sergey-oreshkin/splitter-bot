@@ -1,11 +1,10 @@
 DROP TABLE IF EXISTS split_record;
 DROP TABLE IF EXISTS split;
-DROP TABLE IF EXISTS user_chat;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS chat;
 
 CREATE TABLE users(
-    id SERIAL PRIMARY KEY,
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     user_id BIGINT,
     first_name VARCHAR(255),
     last_name VARCHAR(255),
@@ -14,42 +13,48 @@ CREATE TABLE users(
 );
 
 CREATE TABLE chat(
-    id SERIAL PRIMARY KEY,
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     chat_id BIGINT,
     chat_type VARCHAR(255),
     title VARCHAR(255),
     update DATE DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE user_chat(
-    id SERIAL PRIMARY KEY,
-    user_id INT,
-    chat_id INT,
-    CONSTRAINT user_id
-        FOREIGN KEY (user_id)
-        REFERENCES users(id),
-    CONSTRAINT chat_id
-        FOREIGN KEY (chat_id)
-        REFERENCES chat(id)
-);
+-- CREATE TABLE user_chat(
+--     id INT GENERATED ALWAYS AS IDENTITY UNIQUE,
+--     user_id INT,
+--     chat_id INT,
+--     CONSTRAINT user_id
+--         FOREIGN KEY (user_id)
+--         REFERENCES users(id),
+--     CONSTRAINT chat_id
+--         FOREIGN KEY (chat_id)
+--         REFERENCES chat(id),
+--     CONSTRAINT pk
+--         PRIMARY KEY (user_id, chat_id)
+-- );
 
 CREATE TABLE split(
-    id SERIAL PRIMARY KEY,
-    owner INT,
-    CONSTRAINT owner
-        FOREIGN KEY (owner)
-        REFERENCES user_chat(id)
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    user_id INT,
+    chat_id INT,
+    CONSTRAINT fk_users
+        FOREIGN KEY (user_id)
+        REFERENCES users(id),
+    CONSTRAINT fk_chat
+        FOREIGN KEY (chat_id)
+            REFERENCES chat(id)
 );
 
 CREATE TABLE split_record(
-    id SERIAL PRIMARY KEY,
-    split INT,
-    who_paid INT,
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    split_id INT,
+    who_paid_id INT,
     share jsonb,
-    CONSTRAINT split
-        FOREIGN KEY (split)
+    CONSTRAINT fk_split
+        FOREIGN KEY (split_id)
         REFERENCES split(id),
-    CONSTRAINT who_paid
-        FOREIGN KEY (who_paid)
+    CONSTRAINT fk_users
+        FOREIGN KEY (who_paid_id)
         REFERENCES users(id)
 );

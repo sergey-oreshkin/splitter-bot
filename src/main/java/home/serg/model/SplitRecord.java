@@ -1,30 +1,25 @@
 package home.serg.model;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name = "split_record")
+@Data
 @NoArgsConstructor
-@Getter
-@Setter
-@EqualsAndHashCode
+@Entity
 public class SplitRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @ManyToOne(targetEntity = Split.class)
+    @ManyToOne
     private Split split;
 
-    @ManyToOne(targetEntity = User.class)
-    private User whoPaid;
+    @ManyToOne
+    private Users whoPaid;
 
-    @Column(name = "share")
     private String share;
+
 }
