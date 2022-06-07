@@ -1,22 +1,24 @@
-package home.serg.model;
+package home.serg.entity;
 
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.HashSet;
-import java.util.Set;
 
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode(exclude = {"usersChats"})
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 public class Users {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private Long userId;
@@ -29,5 +31,8 @@ public class Users {
 
     @CreationTimestamp
     private LocalDateTime update;
+
+    @OneToMany(mappedBy = "users", cascade = {CascadeType.ALL})
+    private Collection<UsersChat> usersChats = new HashSet<>();
 
 }

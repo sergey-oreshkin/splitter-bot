@@ -1,9 +1,10 @@
+-- don't use this script!
 DROP TABLE IF EXISTS split_record;
 DROP TABLE IF EXISTS split;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS chat;
 
-CREATE TABLE users(
+--CREATE TABLE users(
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     user_id BIGINT,
     first_name VARCHAR(255),
@@ -12,7 +13,7 @@ CREATE TABLE users(
     update DATE DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE chat(
+--CREATE TABLE chat(
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     chat_id BIGINT,
     chat_type VARCHAR(255),
@@ -34,10 +35,11 @@ CREATE TABLE chat(
 --         PRIMARY KEY (user_id, chat_id)
 -- );
 
-CREATE TABLE split(
+--CREATE TABLE split(
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     user_id INT,
     chat_id INT,
+    name varchar(255),
     CONSTRAINT fk_users
         FOREIGN KEY (user_id)
         REFERENCES users(id),
@@ -46,7 +48,7 @@ CREATE TABLE split(
             REFERENCES chat(id)
 );
 
-CREATE TABLE split_record(
+--CREATE TABLE split_record(
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     split_id INT,
     who_paid_id INT,

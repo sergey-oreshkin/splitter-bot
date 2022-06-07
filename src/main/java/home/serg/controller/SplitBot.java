@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.io.BufferedReader;
@@ -40,14 +39,11 @@ public class SplitBot extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
 
         SendMessage sm = new SendMessage();
-        log.info(update.toString());
 
         if (update.hasMessage() && update.getMessage().hasText()) {
-            String text = update.getMessage().getText();
             Long chatId = update.getMessage().getChatId();
-            User user = update.getMessage().getFrom();
             sm.setChatId(chatId.toString());
-            sm.setText(messageProcessor.getResponse(chatId, text, user));
+            sm.setText(messageProcessor.getResponse(update));
             try {
                 execute(sm);
             } catch (TelegramApiException e) {
@@ -57,7 +53,7 @@ public class SplitBot extends TelegramLongPollingBot {
                 "member".equals(update.getMyChatMember().getNewChatMember().getStatus())) {
             Long chatId = update.getMyChatMember().getChat().getId();
             sm.setChatId(chatId.toString());
-            sm.setText(messageProcessor.getResponse(chatId, "/", null));
+            sm.setText(messageProcessor.getResponse(update));
             try {
                 execute(sm);
             } catch (TelegramApiException e) {

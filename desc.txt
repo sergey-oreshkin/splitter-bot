@@ -12,8 +12,11 @@ user
 chat
     (PK id, chat_id, type, title, update(current timestamp))
 
+user_chat
+    (PK(user_id,chat_id)
+
 split
     (PK id, FK user(user.id) , FK chat(chat.id), name)
 
-expense(split_record)
+split_record(split_record)
     (PK id, FK split(split.id), FK who_paid(user.id), share JSONb)
