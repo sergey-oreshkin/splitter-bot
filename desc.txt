@@ -7,16 +7,16 @@
 DB
 
 user
-    (PK id, firs_name, last_name, nic, updated(current timestamp))
+    (PK id, firs_name, last_name, nic, update(current timestamp))
 
 chat
-    (PK id, chat_id, type, title, updated(current timestamp))
+    (PK id, chat_id, type, title, update(current timestamp))
 
 user_chat
-    (PK id, FK user(user.id), FK chat(chat.id))
+    (PK(user_id,chat_id)
 
 split
-    (PK id, FK owner(user_chat.id))
+    (PK id, FK user(user.id) , FK chat(chat.id), name)
 
-expense(split_record)
+split_record(split_record)
     (PK id, FK split(split.id), FK who_paid(user.id), share JSONb)
