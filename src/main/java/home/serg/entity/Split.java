@@ -16,7 +16,7 @@ public class Split {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     String name;
 

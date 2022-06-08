@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ChatDao extends CrudRepository<Chat, Integer> {
+public interface ChatDao extends CrudRepository<Chat, Long> {
 }

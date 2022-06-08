@@ -1,5 +1,6 @@
 package home.serg.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -7,6 +8,7 @@ import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class UsersChat {
 
@@ -14,8 +16,8 @@ public class UsersChat {
     private UsersChatId usersChatId = new UsersChatId();
 
     @ManyToOne
-    @MapsId(value = "usersId")
-    @JoinColumn(name = "users_id")
+    @MapsId(value = "userId")
+    @JoinColumn(name = "uses_id")
     private Users users;
 
     @ManyToOne

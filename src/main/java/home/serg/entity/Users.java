@@ -18,9 +18,6 @@ import java.util.HashSet;
 public class Users {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
     private Long userId;
 
     private String firstName;

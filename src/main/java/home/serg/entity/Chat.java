@@ -18,9 +18,6 @@ import java.util.HashSet;
 public class Chat {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
     private Long chatId;
 
     private String chatType;
